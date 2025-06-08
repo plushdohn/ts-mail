@@ -1,0 +1,10 @@
+{
+  "name": "example-basic",
+  "type": "module",
+  "dependencies": {
+    "simple-email": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.15"
+  }
+}
