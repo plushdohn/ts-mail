@@ -29,8 +29,8 @@ export function defaultLayout(options: DefaultLayoutOptions) {
     const signatureOptions =
       typeof options.signature === "object" ? options.signature : null;
 
-    const signatureAlign = signatureOptions?.align || "left";
-    const signatureFontSize = signatureOptions?.fontSize || "14px";
+    const signatureAlign = signatureOptions?.align;
+    const signatureFontSize = signatureOptions?.fontSize;
     const signatureColor = signatureOptions?.color || "#6b7280";
 
     const html = `<table cell-padding="0" cell-spacing="0" class="root">
@@ -80,10 +80,10 @@ hr {
 .content {
   width: 100%;
   margin: 0 auto;
-  border: 1px solid #a1a1aa;
-  padding: 3em;
-  border-radius: ${options.content?.borderRadius || "1em"};
-  background-color: ${options.content?.backgroundColor || "#e4e4e7"};
+  border: 1px solid #d4d4d8;
+  padding: 2em;
+  border-radius: ${options.content?.borderRadius || "0.75em"};
+  background-color: ${options.content?.backgroundColor || "#ffffff"};
 }
 
 .content-root > *:first-child {
