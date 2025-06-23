@@ -1,11 +1,8 @@
 import { codeToHtml } from "shiki";
 import { createEmailBuilder } from "simple-email";
-import { defaultLayout } from "simple-email/layouts/default";
 
 const emails = createEmailBuilder({
-  layout: defaultLayout({
-    signature: "Acme Corp LLC, Mountain View, CA 94043",
-  }),
+  footer: "Acme Corp LLC, Mountain View, CA 94043",
 });
 
 const markdown = `
@@ -28,9 +25,7 @@ const welcomeTemplate = await emails.build({
 });
 
 const code = `const emails = createEmailBuilder({
-  layout: defaultLayout({
-    signature: "Acme Corp LLC, Mountain View, CA 94043"
-  }),
+  footer: "Acme Corp LLC, Mountain View, CA 94043"
 });
 
 const content = \`

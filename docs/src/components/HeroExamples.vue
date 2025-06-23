@@ -33,7 +33,6 @@ import { data } from "../data/home.data";
 }
 
 .template {
-  filter: invert(1);
   flex: 1;
   border: none;
   width: 100%;
