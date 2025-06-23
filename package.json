@@ -1,6 +1,5 @@
 {
   "workspaces": [
-    "docs",
     "examples/*",
     "packages/*"
   ],

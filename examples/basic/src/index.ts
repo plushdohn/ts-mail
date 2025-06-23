@@ -1,11 +1,7 @@
-import { createEmailBuilder } from "simple-email";
-import { defaultLayout } from "simple-email/layouts/default";
+import { createEmailBuilder } from "ts-mail";
 
 const emails = createEmailBuilder({
-  layout: defaultLayout({
-    signature:
-      "Acme Corp LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043",
-  }),
+  footer: "Acme Corp LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043",
 });
 
 const markdown = `
@@ -24,4 +20,3 @@ const welcomeTemplate = await emails.build({
 });
 
 Bun.write("welcome.html", welcomeTemplate.html);
-// <html>...</html>
