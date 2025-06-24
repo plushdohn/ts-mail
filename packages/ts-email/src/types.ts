@@ -36,6 +36,7 @@ export type EmailParams = EmailContent & {
   data: Record<string, string>;
   footer?: string;
   styles?: EmailStyles;
+  css?: string;
 };
 
 export interface EmailLayoutOptions {

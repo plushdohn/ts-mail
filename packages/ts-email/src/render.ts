@@ -1,6 +1,7 @@
 import { marked } from "marked";
 import type { EmailLayoutOptions, EmailParams, EmailStyles } from "./types";
 import { createTextRenderer } from "./marked/render-text";
+import { GRAYS } from "./colors";
 
 export function getEmailWithLayout(
   content: string,
@@ -128,43 +129,46 @@ a:hover {
 }
 
 function getStylesWithDefaults(styles?: EmailStyles) {
+  // TODO: Make this configurable
+  const chosenGrays = GRAYS.zinc;
+
   return {
     ...styles,
     footer: {
       fontSize: "12px",
       color: {
-        light: "#71717a",
-        dark: "#71717a",
+        light: chosenGrays[500],
+        dark: chosenGrays[500],
       },
       align: "center",
       ...styles?.footer,
     },
     links: {
       color: {
-        light: "#007bff",
-        dark: "#007bff",
+        light: chosenGrays[600],
+        dark: chosenGrays[600],
       },
       ...styles?.links,
     },
     document: {
       backgroundColor: {
-        light: "#e4e4e7",
-        dark: "#09090b",
+        light: chosenGrays[100],
+        dark: chosenGrays[900],
       },
       ...styles?.document,
     },
     content: {
       backgroundColor: {
-        light: "#ffffff",
-        dark: "#18181b",
+        light: chosenGrays[100],
+        dark: chosenGrays[900],
       },
       borderRadius: "0.75em",
       ...styles?.content,
     },
     paragraphs: {
       color: {
-        light: "#27272a",
-        dark: "#a1a1aa",
+        light: chosenGrays[700],
+        dark: chosenGrays[700],
       },
       ...styles?.paragraphs,
     },

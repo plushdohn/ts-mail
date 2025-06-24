@@ -1,9 +1,9 @@
-import type { BuildEmailParams, EmailOptions, EmailParams } from "./types";
 import {
+  getEmailWithLayout,
   computeContentAsHtml,
   computeContentAsText,
-  getEmailWithLayout,
 } from "./render";
+import type { BuildEmailParams, EmailOptions, EmailParams } from "./types";
 
 export async function buildEmail(params: BuildEmailParams) {
   const [text, content] = await Promise.all([
@@ -28,7 +28,7 @@ export async function buildEmail(params: BuildEmailParams) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="color-scheme" content="light dark" />
 
-<style>${renderedLayout.css}</style>
+<style>${renderedLayout.css}${params.css || ""}</style>
 </head>
 <body>${contentHtml}</body>
 </html>`;
