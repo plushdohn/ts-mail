@@ -172,6 +172,7 @@ function getStylesWithDefaults(styles?: EmailStyles) {
         dark: chosenGrays[900],
       },
       borderRadius: "0.75em",
+      ...styles?.content,
       border: {
         width: "1px",
         color: {
@@ -180,7 +181,6 @@ function getStylesWithDefaults(styles?: EmailStyles) {
         },
         ...styles?.content?.border,
       },
-      ...styles?.content,
     },
     paragraphs: {
       color: {
