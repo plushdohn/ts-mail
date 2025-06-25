@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ChevronsRightIcon } from "lucide-react";
 
-import { EmailDemoSwitch } from "./components/email-demo-switch";
+import { EmailDemoSwitch } from "./_components/email-demo-switch";
 
 export default function Page() {
   return (

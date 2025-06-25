@@ -1,5 +1,5 @@
 import { buildEmail, EmailParams } from "ts-mail";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./Tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
 import { codeToHtml } from "shiki";
 
 const options: EmailParams & { markdown: string } = {

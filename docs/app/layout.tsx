@@ -17,11 +17,7 @@ export default async function RootLayout({
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <Head />
       <body>
-        <Layout
-          navbar={navbar}
-          pageMap={await getPageMap("/docs")}
-          footer={footer}
-        >
+        <Layout navbar={navbar} pageMap={await getPageMap()} footer={footer}>
           {children}
         </Layout>
       </body>
