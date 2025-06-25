@@ -1,0 +1,104 @@
+import { Callout } from "nextra/components";
+
+# Framework guides
+
+ts-email itself is just a library to generate HTML emails from markdown code. The way you obtain that markdown is kind of up to you, and is usually specific to the setup.
+
+Sometimes you might want to write the markdown inline with the rest of the code, other times you might fetch the markdown from a CMS or an API.
+
+Another approach is storing `.md` files alongside your code. This gives you the upside of syntax highlighting and ease of editing, and it's also the least intrusive approach if you eventually want to migrate the markdown to a remote source.
+
+The following guides will show you how to read markdown files on different environments and frameworks.
+
+## Next.js
+
+In general for Next.js you can follow the same approach as for your runtime (probably [Node.js](#nodejs)).
+
+That said, you need to make sure the .md files are included in the final bundled folder.
+
+The easiest way to do this is placing the .md files in the `public` folder, and then reading them from there.
+
+### Importing as raw text
+
+If you want to go for a bit of a fancier setup and be able to import markdown files directly like so:
+
+```ts
+import welcomeEmail from "./welcomeEmail.md";
+```
+
+you can configure Next to handle markdown files as raw text by adding a rule to your `next.config.js` that makes `.md` files be handled as assets.
+
+```js
+module.exports = {
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    config.module.rules.push({
+      test: /\.md$/,
+      // This is the asset module.
+      type: "asset/source",
+    });
+    return config;
+  },
+};
+```
+
+If you're using TypeScript, you must also add this declaration to a `global.d.ts` file:
+
+```ts
+declare module "*.md";
+```
+
+## Node.js
+
+For Node.js you can use the `fs` module to read the markdown file:
+
+```ts
+import fs from "node:fs";
+
+const email = await buildEmail({
+  markdown: fs.readFileSync("./welcomeEmail.md", "utf-8"),
+  subject: "Welcome to our app",
+});
+```
+
+For this to work, you need to make sure the markdown file is included in the server where Node is running.
+
+If you're using a bundler like Rollup, Vite or Webpack, you can configure those to copy the markdown file to the output folder, or even better use `import` loaders.
+
+Same applies if you're using Docker, you need to make sure the markdown file is included in the final image.
+
+## Bun
+
+If you're using Bun as the runtime for your untranspiled code (or using `bun build`), you can directly import asset files as raw text using import macros:
+
+```ts
+import welcomeEmail from './welcomeEmail.md' with { type: "text" };
+
+const email = await buildEmail({
+  markdown: welcomeEmail,
+  subject: "Welcome to our app",
+});
+```
+
+### Fallback to file IO
+
+If this approach is giving you problems you can always fall back to reading from the file system, either with Bun APIs or Node.js fs:
+
+With Bun APIs:
+
+```ts
+const email = await buildEmail({
+  markdown: await Bun.file("./welcomeEmail.md").text(),
+  subject: "Welcome to our app",
+});
+```
+
+With Node.js fs:
+
+```ts
+import fs from "node:fs";
+
+const email = await buildEmail({
+  markdown: fs.readFileSync("./welcomeEmail.md", "utf-8"),
+  subject: "Welcome to our app",
+});
+```
