@@ -15,6 +15,12 @@ export interface EmailStyles {
   content?: {
     backgroundColor?: ResponsiveColor;
     borderRadius?: string;
+    border?:
+      | {
+          width?: string;
+          color?: ResponsiveColor;
+        }
+      | false;
   };
   paragraphs?: {
     color?: ResponsiveColor;

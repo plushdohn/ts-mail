@@ -1,7 +1,8 @@
 {
   "workspaces": [
     "examples/*",
-    "packages/*"
+    "packages/*",
+    "docs"
   ],
   "devDependencies": {
     "typescript": "^5"

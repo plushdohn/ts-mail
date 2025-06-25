@@ -31,6 +31,10 @@ export function getEmailWithLayout(
 </table>`;
 
   const css = `
+html {
+  height: 100%;
+}
+
 :root {
   color-scheme: light dark;
 }
@@ -50,6 +54,7 @@ body {
 
 p {
   color: ${styles.paragraphs.color.light};
+  line-height: 1.5;
 }
 
 hr {
@@ -62,7 +67,11 @@ hr {
 .content {
   width: 100%;
   margin: 0 auto;
-  border: 1px solid #d4d4d8;
+  ${
+    styles.content.border
+      ? `border: ${styles.content.border.width} solid ${styles.content.border.color.light};`
+      : ""
+  }
   padding: 2em;
   border-radius: ${styles.content.borderRadius};
   background-color: ${styles.content.backgroundColor.light};
@@ -153,7 +162,7 @@ function getStylesWithDefaults(styles?: EmailStyles) {
     document: {
       backgroundColor: {
         light: chosenGrays[100],
-        dark: chosenGrays[900],
+        dark: chosenGrays[800],
       },
       ...styles?.document,
     },
@@ -163,12 +172,20 @@ function getStylesWithDefaults(styles?: EmailStyles) {
         dark: chosenGrays[900],
       },
       borderRadius: "0.75em",
+      border: {
+        width: "1px",
+        color: {
+          light: chosenGrays[200],
+          dark: chosenGrays[700],
+        },
+        ...styles?.content?.border,
+      },
       ...styles?.content,
     },
     paragraphs: {
       color: {
         light: chosenGrays[700],
-        dark: chosenGrays[700],
+        dark: chosenGrays[400],
       },
       ...styles?.paragraphs,
     },

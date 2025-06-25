@@ -51,3 +51,7 @@ export function createEmailBuilder(options: EmailOptions) {
     build,
   };
 }
+
+export type { BuildEmailParams, EmailOptions, EmailParams };
+
+export { GRAYS } from "./colors";
