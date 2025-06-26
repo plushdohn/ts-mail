@@ -1,0 +1,18 @@
+# Node.js
+
+For Node.js you can use the `fs` module to read the markdown file:
+
+```ts
+import fs from "node:fs";
+
+const email = await buildEmail({
+  markdown: fs.readFileSync("./welcomeEmail.md", "utf-8"),
+  subject: "Welcome to our app",
+});
+```
+
+For this to work, you need to make sure the markdown file is included in the server where Node is running.
+
+If you're using a bundler like Rollup, Vite or Webpack, you can configure those to copy the markdown file to the output folder, or even better use `import` loaders.
+
+Same applies if you're using Docker, you need to make sure the markdown file is included in the final image.
