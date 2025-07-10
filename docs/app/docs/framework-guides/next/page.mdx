@@ -1,0 +1,34 @@
+# Next.js
+
+In general for Next.js you can follow the same approach as for your runtime (probably [Node.js](/docs/framework-guides/node)), but you need to make sure the `.md` files are included in the final bundled folder.
+
+The easiest way to do this is placing the .md files in the `public` folder, and then reading them from there.
+
+## Importing as raw text
+
+If you want to go for a bit of a fancier setup and be able to import markdown files directly like so:
+
+```ts
+import welcomeEmail from "./welcomeEmail.md";
+```
+
+you can configure Next to handle markdown files as raw text by adding a rule to your `next.config.js` that makes `.md` files be handled as assets.
+
+```js
+module.exports = {
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    config.module.rules.push({
+      test: /\.md$/,
+      // This is the asset module.
+      type: "asset/source",
+    });
+    return config;
+  },
+};
+```
+
+If you're using TypeScript, you must also add this declaration to a `global.d.ts` file:
+
+```ts
+declare module "*.md";
+```

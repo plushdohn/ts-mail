@@ -1,0 +1,71 @@
+# Styling
+
+`ts-mail` provides a way to override the default styles of your email via the `styles` option. You can customize colors, fonts, borders, and other visual aspects, or override specific style tokens as needed.
+
+## How Styling Works
+
+- The core rendering logic generates both HTML and CSS for your email, using default styles that can be overridden.
+- You can pass a `styles` object to customize colors, backgrounds, border radii, and more.
+- Styles support both light and dark mode via CSS media queries.
+- The system uses a set of default grayscale colors, but you can override any part of the style object.
+
+## Customizable Style Options
+
+You can override the styles for the following elements and sections:
+
+- `footer`: font size, color (light/dark), alignment
+- `links`: color (light/dark)
+- `document`: background color (light/dark)
+- `content`: background color (light/dark), border radius, border (width, color)
+- `paragraphs`: color (light/dark)
+
+Each color property accepts a `{ light: string, dark: string }` object.
+
+## Example
+
+```ts
+import { buildEmail } from "ts-mail";
+
+const { html, text } = await buildEmail({
+  // other options...,
+  styles: {
+    content: {
+      backgroundColor: {
+        light: "#ffffff",
+        dark: "#18181b",
+      },
+      border: {
+        width: "2px",
+        color: {
+          light: "#e5e7eb",
+          dark: "#27272a",
+        },
+      },
+      borderRadius: "1em",
+    },
+    links: {
+      color: {
+        light: "#2563eb",
+        dark: "#60a5fa",
+      },
+    },
+    footer: {
+      fontSize: "14px",
+      color: {
+        light: "#a1a1aa",
+        dark: "#71717a",
+      },
+      align: "right",
+    },
+  },
+});
+```
+
+## Dark Mode
+
+- The generated CSS includes `@media (prefers-color-scheme: dark)` rules.
+- You can specify both `light` and `dark` values for colors; defaults are provided if omitted.
+
+## Additional Custom CSS
+
+- You can provide additional CSS via the `css` field in `buildEmail` parameters. This will be appended to the generated CSS.

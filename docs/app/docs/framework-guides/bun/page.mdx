@@ -1,0 +1,36 @@
+# Bun
+
+If you're using Bun as the runtime for your untranspiled code (or using `bun build`), you can directly import asset files as raw text using import macros:
+
+```ts
+import welcomeEmail from './welcomeEmail.md' with { type: "text" };
+
+const email = await buildEmail({
+  markdown: welcomeEmail,
+  subject: "Welcome to our app",
+});
+```
+
+## Fallback to file IO
+
+If this approach is giving you problems you can always fall back to reading from the file system, either with Bun APIs or Node.js fs:
+
+With Bun APIs:
+
+```ts
+const email = await buildEmail({
+  markdown: await Bun.file("./welcomeEmail.md").text(),
+  subject: "Welcome to our app",
+});
+```
+
+With Node.js fs:
+
+```ts
+import fs from "node:fs";
+
+const email = await buildEmail({
+  markdown: fs.readFileSync("./welcomeEmail.md", "utf-8"),
+  subject: "Welcome to our app",
+});
+```

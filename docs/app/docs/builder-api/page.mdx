@@ -1,0 +1,30 @@
+# Builder API
+
+You typically want to share some options between the different emails in your app (layout options, styling, footer, etc.).
+
+ts-mail provides an API to make this more conveient, by defining an email **builder** and using that to build emails.
+
+```ts
+import { createEmailBuilder } from "ts-mail";
+
+/**
+ * All the emails created with this will have
+ * the same footer and a black background
+ */
+const emails = createEmailBuilder({
+  styles: {
+    document: {
+      backgroundColor: "black",
+    },
+  },
+  footer: "Acme Corp LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043",
+});
+
+const email = await emails.build({
+  markdown: "Hello *{{name}}*",
+  subject: "Hello",
+  data: {
+    name: "John",
+  },
+});
+```

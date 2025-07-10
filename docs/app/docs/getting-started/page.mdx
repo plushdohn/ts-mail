@@ -1,0 +1,64 @@
+# Getting started
+
+### Installation
+
+ts-mail can be installed in any environment (browsers included) as a single npm package.
+
+```sh npm2yarn
+npm i ts-mail
+```
+
+That's it! ✨
+
+### Basic usage
+
+You can now use ts-mail to generate HTML emails like this:
+
+```ts
+import { buildEmail } from "ts-mail";
+
+const email = await buildEmail({
+  markdown: "Hello *{{name}}*",
+  subject: "Hello",
+  data: {
+    name: "John",
+  },
+});
+
+// Generated HTML document
+console.log(email.html);
+
+// Text-only version of the email
+console.log(email.text);
+```
+
+### Builder
+
+You typically want to share some options between the different emails in your app (layout options, styling, footer, etc.).
+
+ts-mail provides an API to make this more conveient, by defining an email **builder** and using that to build emails.
+
+```ts
+import { createEmailBuilder } from "ts-mail";
+
+/**
+ * All the emails created with this will have
+ * the same footer and a black background
+ */
+const emails = createEmailBuilder({
+  styles: {
+    document: {
+      backgroundColor: "black",
+    },
+  },
+  footer: "Acme Corp LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043",
+});
+
+const email = await emails.build({
+  markdown: "Hello *{{name}}*",
+  subject: "Hello",
+  data: {
+    name: "John",
+  },
+});
+```
